@@ -1,49 +1,7 @@
 from PIL import Image
-im = Image.open("test2.png")
-#im.show()
-
-#test img dimensions are 320px by 320px
-
-#box = (100, 100, 200, 200)
-#region = im.crop(box)
-
-
-def roll(im, delta):
-    """Roll an image sideways."""
-    xsize, ysize = im.size
-
-    delta = delta % xsize
-    if delta == 0:
-        return im
-
-    part1 = im.crop((0, 0, delta, ysize))
-    part2 = im.crop((delta, 0, xsize, ysize))
-    
-    #im.paste(part1, (xsize - delta, 0, xsize, ysize))
-    im.paste(part2, (0, 0, xsize - delta, ysize))
-
-    temp2 = Image.new('RGBA', im.size)
-    
-    #temp2.paste(part1, (xsize - delta, 0, xsize, ysize))
-    temp2.paste(part2, (0, 0, xsize - delta, ysize))
-    #temp2.paste()
-    return temp2
-"""
-img = Image.open("test.png").convert('RGB')
-print(img)
-temp = img.load()
-print(img.getdata())
-"""
 
 im = Image.open("test14.png").convert('RGBA')
 pix_val=list(im.getdata())
-"""
-pix_val_flat=[]
-for group in pix_val:
-    for item in group:
-        pix_val_flat.append(item)
-"""
-
 
 def getMinBounds(bg, img):
     #bg will be a tuple of rgba, which is the background color
@@ -127,30 +85,13 @@ def getMinBounds(bg, img):
     minBounds = (checkWest(), checkNorth(), checkEast(), checkSouth())
     return minBounds
 
-#print(pix_val)
-getMinBounds((255, 255, 255, 255), im) #returns a tuple of where you crop
-
-
-
-
-xsize, ysize = im.size
 box = (2, 3, 6, 9) #the proper crop for test8.png
 
-box = getMinBounds((255, 255, 255, 255), im) #returns a tuple of where you crop
-
+box = getMinBounds((0, 0, 0, 255), im) #returns a tuple of where you crop
+print(box)
 
 temp2 = Image.new('RGBA', im.size)
 cropped = im.crop(box)
+print(cropped.size)
 
-temp2.paste(cropped, box)
-
-temp2.show()
-"""
-part1 = im.crop((0, 0, delta, ysize))
-part2 = im.crop((delta, 0, xsize, ysize))
-
-
-temp2 = Image.new('RGBA', im.size)
-
-temp2.paste(part1, (xsize - delta, 0, xsize, ysize))
-temp2.paste(part2, (0, 0, xsize - delta, ysize))"""
+cropped.save("dest/temp.png")
