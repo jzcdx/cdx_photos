@@ -35,7 +35,7 @@ temp = img.load()
 print(img.getdata())
 """
 
-im = Image.open("test8.png").convert('RGBA')
+im = Image.open("test14.png").convert('RGBA')
 pix_val=list(im.getdata())
 """
 pix_val_flat=[]
@@ -118,12 +118,12 @@ def getMinBounds(bg, img):
 
     hori_ver = formatHorizontally()
     vert_ver = formatVertically()
-    
+    """
     print("North Boundary: " , checkNorth())
     print("South Boundary: " , checkSouth())
     print("West Boundary: " , checkWest())
     print("East Boundary: " , checkEast())
-    
+    """
     minBounds = (checkWest(), checkNorth(), checkEast(), checkSouth())
     return minBounds
 
@@ -135,6 +135,9 @@ getMinBounds((255, 255, 255, 255), im) #returns a tuple of where you crop
 
 xsize, ysize = im.size
 box = (2, 3, 6, 9) #the proper crop for test8.png
+
+box = getMinBounds((255, 255, 255, 255), im) #returns a tuple of where you crop
+
 
 temp2 = Image.new('RGBA', im.size)
 cropped = im.crop(box)
