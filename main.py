@@ -53,27 +53,33 @@ def getMinBounds(bg, img):
     pixel_map = list(img.getdata())
 
     def formatHorizontally(width): #groups go from Left to Right
-        print(width)
         ret_me = []
         cur_row = set()
-        #cur_row = []
         row_count = 0;
         for i in range(len(pixel_map)):
             cur_row.add(pixel_map[i])
-            #cur_row.append(pixel_map[i])
             row_count += 1;
             if row_count == width:
                 ret_me.append(cur_row)
                 cur_row = set()
-                #cur_row = []
                 row_count = 0;
-            
-        print("here")
-        for i in ret_me:
-            print(i)
-
-    res = formatHorizontally(img.size[0]) #gets width
+        return ret_me
     
+    def formatVertically(width):
+        res = [set() for index in range(width)]
+        cur_col = 0;
+        for i in range(len(pixel_map)):
+            res[cur_col].add(pixel_map[i])
+            cur_col += 1;
+            if cur_col == width:
+                cur_col = 0;
+        return res
+
+    hori_ver = formatHorizontally(img.size[0]) #gets width
+    
+    vert_ver = formatVertically(img.size[0])
+    
+
     def checkNorth():
         for i in pixel_map:
             pass
